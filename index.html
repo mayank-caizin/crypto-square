@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Square</title>
+
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="text-center">Crypto Square</h1>
+            <p class="text-center">
+                Encrypt and Decrypt a String
+            </p>
+        </header>
+
+        <main>
+            <div id="input-container">
+                <input type="text" name="inputString" id="inputString"
+                class="form-control"
+                placeholder="Input String"
+                required>
+
+                <input type="number"
+                name="key"
+                id="key"
+                min="1"
+                class="form-control"
+                placeholder="Key">
+            </div>
+
+            <div id="result-container">
+                <p id="result" class="hide"><span id="input">"Mayank has a lot to do"</span> --> <span id="output">"mahatdanaltoyksoo"</span>
+                </p>
+            </div>
+
+            <div id="btn-container">
+                <button class="btn" onclick="encrypt()">Encrypt</button>
+                <button class="btn" onclick="decrypt()">Decrypt</button>
+            </div>
+        </main>
+    </div>
+    <script src="./js/index.js"></script>
+</body>
+</html>

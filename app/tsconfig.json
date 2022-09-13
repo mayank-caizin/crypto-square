@@ -1,0 +1,18 @@
+{
+    "extends": "../tsconfig.base",
+    "compilerOptions": {
+        "removeComments": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "traceResolution": true,
+        // "baseUrl": "./modules" // for non-relative imports
+        // few other options in course -> slides/screenshots
+        // "outFile": "../js/index.js"
+    },
+    "files": [
+        "./index.ts"
+    ]
+    // "include": [
+    //     "./**/*"
+    // ]
+}
