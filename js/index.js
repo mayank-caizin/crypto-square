@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!inputString || !key)
             return;
         let output = encryptString(inputString, parseInt(key));
-        console.log(output);
         let inputElement = document.getElementById('input');
         let outputElement = document.getElementById('output');
         let resElement = document.getElementById('result');
@@ -60,7 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             matrix.push(arr);
         }
-        console.log(matrix);
         let result = "";
         for (let j = 0; j < key; j++) {
             for (let i = 0; i < matrix.length; i++) {
@@ -77,9 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let matrix = [];
         let i = 0;
         let l = input.length;
+        let x = 0;
+        if (rem > 0)
+            x = 1;
+        console.log(newkey);
+        console.log(key);
         while (i < l) {
             let arr = [];
-            for (let j = 0; j < newkey + rem; j++) {
+            for (let j = 0; j < newkey + x; j++) {
                 if (i == l)
                     break;
                 arr.push(input.charAt(i));
@@ -87,12 +90,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (rem > 0)
                 rem--;
+            else
+                x = 0;
             matrix.push(arr);
         }
         console.log(matrix);
         rem = input.length % key;
+        x = 0;
+        if (rem > 0)
+            x = 1;
         let result = "";
-        for (let j = 0; j < newkey + rem; j++) {
+        for (let j = 0; j < newkey + x; j++) {
             for (let i = 0; i < matrix.length; i++) {
                 if (j >= matrix[i].length)
                     break;
