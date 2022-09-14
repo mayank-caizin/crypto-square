@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         inputElement.innerHTML = inputString;
         outputElement.innerHTML = output;
         resElement.classList.remove('hide');
+        localStorage.setItem("previousString", inputString);
         localStorage.setItem("input", output);
         localStorage.setItem("key", key);
     });
@@ -34,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         getInput();
         if (!inputString || !key)
             return;
-        let output = decryptString(inputString, parseInt(key));
+        let output = oneTimeDecrypt();
         console.log(output);
         let inputElement = document.getElementById('input');
         let outputElement = document.getElementById('output');
@@ -46,6 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem("key", key);
     });
     function encryptString(input, key) {
+        input = input.replace(/ /g, '');
         let matrix = [];
         let i = 0;
         let l = input.length;
@@ -67,6 +69,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 result += matrix[i][j];
             }
         }
+        return result;
+    }
+    function oneTimeDecrypt() {
+        let result = localStorage.getItem("previousString");
+        if (result == null)
+            return "";
         return result;
     }
     function decryptString(input, key) {
@@ -107,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 result += matrix[i][j];
             }
         }
+        result = result.replace(/&zwnj;/g, ' ');
         return result;
     }
 });
