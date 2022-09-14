@@ -77,31 +77,10 @@ document.addEventListener('DOMContentLoaded', () => {
         let spaceInfo = spaceIndex.join("-");
         spaceInfo = btoa(spaceInfo);
 
-        // creating a matrix of the characters in input excluding spaces
+        // removing spaces from input
         input = input.replace(/ /g, '');
-        let matrix: string[][] = [];
-        let i: number = 0;
-        let l: number = input.length;
 
-        while(i < l) {
-            let arr: string[] = [];
-            for(let j:number = 0; j < key; j++) {
-                if(i == l) break;
-
-                arr.push(input.charAt(i));
-                i++;
-            }
-            matrix.push(arr);
-        }
-
-        // encrypting the matrix into result
-        let result = "";
-        for(let j:number = 0; j < key; j++) {
-            for(let i:number = 0; i < matrix.length; i++) {
-                if(j >= matrix[i].length) break;
-                result += matrix[i][j];
-            }
-        }
+        let result = encryptString(input, key);
 
         // adding space information to the result
         result += "|" + spaceInfo;
@@ -119,44 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(spaceInfo);
 
         // decrypting the encrypted string
-        let newkey: number = Math.floor(input.length / key);
-        let rem: number = input.length % key;
-
-        let matrix: string[][] = [];
-        let i: number = 0;
-        let l: number = input.length;
-        let x: number = 0;
-        if(rem > 0) x = 1;
-
-        while(i < l) {
-            let arr: string[] = [];
-            for(let j:number = 0; j < newkey + x; j++) {
-                if(i == l) break;
-
-                arr.push(input.charAt(i));
-                i++;
-            }
-            if(rem > 0) rem--;
-            if(rem <= 0) x = 0;
-
-            matrix.push(arr);
-        }
-
-        console.log(matrix);
-
-        rem = input.length % key;
-        x = 0;
-        if(rem > 0) x = 1;
-
-        let result: string = "";
-        for(let j:number = 0; j < newkey + x; j++) {
-            for(let i:number = 0; i < matrix.length; i++) {
-                if(j >= matrix[i].length) break;
-                result += matrix[i][j];
-            }
-        }
-
-        console.log(result);
+        let result = decryptString(input, key);
 
         // adding spaces back to the decrypted string
         spaceInfo = atob(spaceInfo);
@@ -170,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let newResult: string = "";
         let prevIdx: number = 0;
-        x = 0;
+        let x: number = 0;
         for(let i: number = 0; i < spaceIndex.length; i++) {
             newResult += result.substring(prevIdx, spaceIndex[i] - x);
             prevIdx = spaceIndex[i] - x;
@@ -186,6 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function encryptString(input: string, key: number): string {
         // uncomment this to use oneTimeDecrypt()
         // input = input.replace(/ /g, '');
+
+        // creating a matrix of the characters in input
         let matrix: string[][] = [];
         let i: number = 0;
         let l: number = input.length;
@@ -201,6 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
             matrix.push(arr);
         }
 
+        // encrypting the input using the matrix
         let result = "";
         for(let j:number = 0; j < key; j++) {
             for(let i:number = 0; i < matrix.length; i++) {
@@ -226,12 +171,12 @@ document.addEventListener('DOMContentLoaded', () => {
         let matrix: string[][] = [];
         let i: number = 0;
         let l: number = input.length;
-        let x:number = 0;
+        let x: number = 0;
         if(rem > 0) x = 1;
 
         while(i < l) {
             let arr: string[] = [];
-            for(let j:number = 0; j < newkey + x; j++) {
+            for(let j: number = 0; j < newkey + x; j++) {
                 if(i == l) break;
 
                 arr.push(input.charAt(i));
@@ -248,8 +193,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if(rem > 0) x = 1;
 
         let result: string = "";
-        for(let j:number = 0; j < newkey + x; j++) {
-            for(let i:number = 0; i < matrix.length; i++) {
+        for(let j: number = 0; j < newkey + x; j++) {
+            for(let i: number = 0; i < matrix.length; i++) {
                 if(j >= matrix[i].length) break;
                 result += matrix[i][j];
             }
