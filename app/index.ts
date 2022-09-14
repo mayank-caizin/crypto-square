@@ -238,7 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 i++;
             }
             if(rem > 0) rem--;
-            else x = 0;
+            if(rem <= 0) x = 0;
 
             matrix.push(arr);
         }
