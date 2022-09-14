@@ -78,8 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return result;
     }
     function decryptString2(inputStr, key) {
-        let input = inputStr.split('|')[0];
-        let spaceInfo = inputStr.split('|')[1];
+        let splitIdx = inputStr.lastIndexOf('|');
+        let input = inputStr.substring(0, splitIdx);
+        let spaceInfo = inputStr.substring(splitIdx + 1);
+        console.log(input);
+        console.log(spaceInfo);
         let newkey = Math.floor(input.length / key);
         let rem = input.length % key;
         let matrix = [];
@@ -98,10 +101,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (rem > 0)
                 rem--;
-            else
+            if (rem <= 0)
                 x = 0;
             matrix.push(arr);
         }
+        console.log(matrix);
         rem = input.length % key;
         x = 0;
         if (rem > 0)
@@ -114,8 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 result += matrix[i][j];
             }
         }
+        console.log(result);
         spaceInfo = atob(spaceInfo);
         let spaces = spaceInfo.split("-");
+        console.log(spaces);
         let spaceIndex = [];
         spaces.forEach((val, i) => {
             spaceIndex.push(parseInt(val));
@@ -181,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (rem > 0)
                 rem--;
-            else
+            if (rem <= 0)
                 x = 0;
             matrix.push(arr);
         }
