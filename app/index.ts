@@ -111,8 +111,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function decryptString2(inputStr: string, key: number): string {
         // splitting the encrypted string and space information
-        let input: string = inputStr.split('|')[0];
-        let spaceInfo: string = inputStr.split('|')[1];
+        let splitIdx: number = inputStr.lastIndexOf('|');
+        let input: string = inputStr.substring(0, splitIdx);
+        let spaceInfo: string = inputStr.substring(splitIdx + 1);
+
+        console.log(input);
+        console.log(spaceInfo);
 
         // decrypting the encrypted string
         let newkey: number = Math.floor(input.length / key);
@@ -121,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let matrix: string[][] = [];
         let i: number = 0;
         let l: number = input.length;
-        let x:number = 0;
+        let x: number = 0;
         if(rem > 0) x = 1;
 
         while(i < l) {
@@ -133,10 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 i++;
             }
             if(rem > 0) rem--;
-            else x = 0;
+            if(rem <= 0) x = 0;
 
             matrix.push(arr);
         }
+
+        console.log(matrix);
 
         rem = input.length % key;
         x = 0;
@@ -150,9 +156,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        console.log(result);
+
         // adding spaces back to the decrypted string
         spaceInfo = atob(spaceInfo);
         let spaces: string[] = spaceInfo.split("-");
+        console.log(spaces);
         let spaceIndex: number[] = [];
         spaces.forEach((val, i) => {
             spaceIndex.push(parseInt(val));
